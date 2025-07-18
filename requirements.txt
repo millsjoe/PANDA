@@ -1,2 +1,3 @@
 mypy
 fastapi[standard]
+uvicorn[standard]

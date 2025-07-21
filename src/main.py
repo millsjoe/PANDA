@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
-from connections.base import BaseConnection
-from routes.patients import router as patients_router
-from routes.appointments import router as appointments_router
+from src.connections.base import BaseConnection
+from src.routes.patients import router as patients_router
+from src.routes.appointments import router as appointments_router
 
 app = FastAPI()
 

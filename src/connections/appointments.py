@@ -13,14 +13,14 @@ class AppointmentsConnection(BaseConnection):
             appointments = []
             for row in rows:
                 appointment = {
-                    "id": str(row[0]),
-                    "patient_nhs_number": row[1],
-                    "status": row[2],
-                    "appointment_time": str(row[3]) if row[3] else None,
-                    "duration": row[4],
-                    "clinician": row[5],
-                    "department": row[6],
-                    "postcode": row[7],
+                    "patient_nhs_number": str(row[0]),
+                    "status": row[1],
+                    "appointment_time": str(row[2]) if row[2] else None,
+                    "duration": row[3],
+                    "clinician": row[4],
+                    "department": row[5],
+                    "postcode": row[6],
+                    "id": str(row[7]),
                 }
                 appointments.append(appointment)
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 
-from connections.appointments import AppointmentsConnection
+from src.connections.appointments import AppointmentsConnection
 
 router = APIRouter()
 

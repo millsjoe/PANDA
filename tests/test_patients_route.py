@@ -18,14 +18,9 @@ class TestPatientsRoute:
     """Tests for PatientsRoute class"""
 
     @pytest.fixture(autouse=True)
-    def setup_mocks(self, mock_psycopg2):
+    def setup_mocks(self, mock_db_connection):
         """Setup mocks for all tests in this class"""
-        self.mock_conn = mock_psycopg2.return_value
-        self.mock_cursor = Mock()
-
-        self.mock_cursor.__enter__ = Mock(return_value=self.mock_cursor)
-        self.mock_cursor.__exit__ = Mock(return_value=None)
-        self.mock_conn.cursor = Mock(return_value=self.mock_cursor)
+        self.mock_cursor = mock_db_connection
 
     def test_get_patients_success(self):
         """GET /api/patients returns a list of patients"""
@@ -63,3 +58,55 @@ class TestPatientsRoute:
         assert response.status_code == 404
         data = response.json()
         assert data["error"] == "Patient with NHS number 9999999999 not found"
+
+    def test_create_patient_success(self):
+        """POST /api/patients creates a patient"""
+        response = client.post(
+            "/api/patients",
+            json={
+                "nhs_number": "0021403597",
+                "name": "John Doe",
+                "date_of_birth": "1990-01-01",
+                "postcode": "1234567890",
+            },
+        )
+        assert response.status_code == 201
+
+    def test_create_patient_failure(self):
+        """POST /api/patients creates a patient"""
+        response = client.post(
+            "/api/patients",
+            json={
+                "nhs_number": "12345",
+                "name": "John Doe",
+                "date_of_birth": "1990-01-01",
+                "postcode": "1234567890",
+            },
+        )
+        assert response.status_code == 400
+
+    def test_update_patient_success(self):
+        """PUT /api/patients/{nhs_number} updates a patient"""
+        response = client.put(
+            "/api/patients/0021403597",
+            json={
+                "nhs_number": "0021403597",
+                "name": "John Doe",
+                "date_of_birth": "1990-01-01",
+                "postcode": "1234567890",
+            },
+        )
+        assert response.status_code == 200
+
+    def test_update_patient_failure(self):
+        """PUT /api/patients/{nhs_number} updates a patient"""
+        response = client.put(
+            "/api/patients/0021403597",
+            json={
+                "nhs_number": "0021403597",
+                "name": "John Doe",
+                "date_of_birth": "1990-01-01",
+                "postcode": "1234567890",
+            },
+        )
+        assert response.status_code == 200

@@ -9,6 +9,8 @@ app = FastAPI()
 app.include_router(patients_router)
 app.include_router(appointments_router)
 
+# TODO: add logging
+# TODO: add metrics
 
 # can be used to check if the database is up when deployed
 @app.get(

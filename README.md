@@ -136,6 +136,21 @@ $ fastapi run src/main.py
 
 **IMPORTANT**: The app will require the DB image being spun up indiviudally when this is done.
 
+### Running tests 
+
+``` bash
+$ python3 -m pytest tests/ -v 
+...
+
+tests/test_appointments_connection.py .....                                                                                [ 15%]
+tests/test_appointments_route.py ......                                                                                    [ 34%]
+tests/test_base_connection.py ......                                                                                       [ 53%]
+tests/test_checksum.py ..                                                                                                  [ 59%]
+tests/test_patients_connection.py ......                                                                                   [ 78%]
+tests/test_patients_route.py .......                                                                                       [100%]
+
+======================================================= 32 passed in 1.27s =======================================================
+```
 
 
 
